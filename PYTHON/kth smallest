@@ -1,0 +1,21 @@
+class Solution:
+    def kthSmallest(self, arr, k):
+        def quickSelect(left, right):
+            pivot = arr[right]
+            p = left
+            
+            for i in range(left, right):
+                if arr[i] <= pivot:
+                    arr[p], arr[i] = arr[i], arr[p]
+                    p += 1
+            
+            arr[p], arr[right] = arr[right], arr[p]
+            
+            if p == k-1:
+                return arr[p]
+            elif p > k-1:
+                return quickSelect(left, p-1)
+            else:
+                return quickSelect(p+1, right)
+        
+        return quickSelect(0, len(arr)-1)
